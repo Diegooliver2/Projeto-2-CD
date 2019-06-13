@@ -1,0 +1,39 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity soma is
+port
+	(
+		X, Y: in std_logic_vector(7 downto 0);
+		S : out std_logic_vector(7 downto 0);
+		Co   : out std_logic
+	);
+end soma;
+
+architecture archSoma of soma is
+
+component somador is
+	port
+		(
+			Ci, X, Y : in std_logic;
+			Co, So    : out std_logic
+		);
+end component;
+
+signal carry : std_logic_vector(7 downto 0);
+signal Sx : std_logic_vector(7 downto 0);
+signal ya : std_logic_vector(6 downto 0);
+
+begin
+	S0 : somador port map('0', X(0), Y(0), carry(0), Sx(0));
+	S1 : somador port map(carry(0), X(1), Y(1), carry(1), Sx(1));
+	S2 : somador port map(carry(1), X(2), Y(2), carry(2), Sx(2));
+	S3 : somador port map(carry(2), X(3), Y(3), carry(3), Sx(3));
+	S3 : somador port map(carry(3), X(4), Y(4), carry(4), Sx(4));
+	S3 : somador port map(carry(4), X(5), Y(5), carry(5), Sx(5));
+	S3 : somador port map(carry(5), X(6), Y(6), carry(6), Sx(6));
+	S3 : somador port map(carry(6), X(7), Y(7), carry(7), Sx(7));
+	Co <= carry(7);
+	
+	S <= Sx;
+end archSoma;

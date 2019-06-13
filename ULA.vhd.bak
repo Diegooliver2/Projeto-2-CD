@@ -1,0 +1,37 @@
+library ieee;
+use ieee.std_logic_1164.all
+
+entity ULA is
+port
+	(
+		X, Y : in std_logic_vector(7 downto 0);
+		setULA : in std_logic_vector(2 downto 0);
+		N, Z : out std_logic;
+		SU : out std_logic_vector(7 downto 0)
+	);
+end ULA;
+
+architecture archULA of ULA is
+
+component soma is
+port
+	(
+		A, B: in std_logic_vector(7 downto 0);
+		S : out std_logic_vector(7 downto 0);
+		Co   : out std_logic
+	);
+end component;
+
+signal RS : std_logic_vector(7 downto 0);
+
+begin
+
+	S0 : soma port map(X, Y, RS,);
+	
+	SU <= ((not(set(2)) and not(set(1)) and not(set(0))) and (RS)
+		or (not(set(2)) and not(set(1)) and set(0)) and (X and Y)
+		or (not(set(2)) and set(1) and not(set(0))) and (X or Y)
+		or (not(set(2)) and set(1) and set(0)) and not(X)
+		or (set(2) and not(set(1)) and not(set(0))) and (Y));
+
+end archULA; 
