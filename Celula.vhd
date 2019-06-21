@@ -7,8 +7,7 @@ port
 	(
 		clk, en, rw : in std_logic;
 		E : in std_logic_vector(N-1 downto 0);
-		S : out std_logic_vector(N-1 downto 0);
-		M : out std_logic_vector(N-1 downto 0)
+		S : out std_logic_vector(N-1 downto 0)
 	);
 end Celula;
 
@@ -38,5 +37,4 @@ begin
 		Qs(i));
 		S(i) <= Qs(i) and rw;
 	end generate;
-	M <= Qs;
 end archCelula;

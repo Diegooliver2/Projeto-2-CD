@@ -1,0 +1,24 @@
+library ieee;
+use ieee.std_logic_1164.all;
+entity multiplexador is
+
+port(
+  S0 : in std_logic;
+  Xpc,Xrdm : in std_logic_vector(7 downto 0);
+  Y : out std_logic_vector(7 downto 0)
+);
+end multiplexador;
+
+architecture archM of multiplexador is
+begin
+  --Y(0) <= (X0 and ((S0 and not(S1) and not(S2)) and not(X1 or X2 or X3 or X4) and (b)));
+  --Y(1) <= (X1 and ((not(S0) and S1 and not(S2)) and not(X0 or X2 or X3 or X4) and (b)));
+  --Y(2) <= (X2 and ((S0 and S1 and not(S2)) and not(X0 or X1 or X3 or X4) and (b)));
+  --Y(3) <= (X3 and ((not(S0) and not(S1) and S2) and not(X0 or X1 or X2 or X4) and (b)));
+  --Y(4) <= (X4 and ((S0 and not(S1) and S2) and not(X0 or X1 or X2 or X3) and (b)));
+  
+  WITH S0 SELECT
+	  Y <= Xpc WHEN '0',
+			 Xrdm WHEN '1',
+			"00000000" WHEN OTHERS;
+end archM;
