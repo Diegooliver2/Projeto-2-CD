@@ -1,0 +1,48 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity PC is
+port(
+		recRDM: in std_logic_vector(7 downto 0);
+		clearPC : in std_logic;
+		clkPC : in std_logic;
+		cargaIncPC : in std_logic;
+		saidaPC : out std_logic_vector(7 downto 0)
+	);
+end PC;
+
+architecture archRegPC of RegPC is
+
+component Registrador8Bits is
+port(
+		I   : in std_logic_vector(7 downto 0);
+		clear : in std_logic;
+		clk : in std_logic;
+		Q   : out std_logic_vector(7 downto 0)
+	);
+end component;
+
+component soma is
+port(
+		Ci, A, B : in std_logic;
+		Co, So    : out std_logic
+);
+end component;
+ 
+	signal aux : std_logic_vector(7 downto 0);
+	signal somado : std_logic_vector(7 downto 0);
+	signal auxCO : std_logic;
+	
+begin
+	
+	Q1 : Registrador8Bits port map(aux,clearPC,clkPC, saidaPC);
+	
+	S0 : soma port map('0', recRDM, "00000001", auxCo, somado);
+	
+	with cargaIncPC select
+		aux <= recRDM when '0',
+					somado when '1',
+					"00000000" when others;
+			
+	
+end archPC;
