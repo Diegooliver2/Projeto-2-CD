@@ -33,53 +33,51 @@ signal rwsig : std_logic;
 begin
 
 -- o signal write vai definir em qual célula o dado vai ser inserido;
--- eu nao tenho certeza se a sintaxe do with ta certo, pode ser melhor substituir por um case;
 
-	process(A, write)
-	begin
-	case A is
-		when "0000" => write(0) <= '1';
-		when "0001" => write(1) <= '1';
-		when "0010" => write(2) <= '1';
-		when "0011" => write(3) <= '1';
-		when "0100" => write(4) <= '1';
-		when "0101" => write(5) <= '1';
-		when "0110" => write(6) <= '1';
-		when "0111" => write(7) <= '1';
-		when "1000" => write(8) <= '1';
-		when "1001" => write(9) <= '1';
-		when "1010" => write(10) <= '1';
-		when "1011" => write(11) <= '1';
-		when "1100" => write(12) <= '1';
-		when "1101" => write(13) <= '1';
-		when "1110" => write(14) <= '1';
-		when "1111" => write(15) <= '1';
-		end case;
-	end process;
+	WITH A SELECT write <=
+		"1000000000000000" when "0000",
+		"0100000000000000" when "0001",
+		"0010000000000000" when "0010",
+		"0001000000000000" when "0011",
+		"0000100000000000" when "0100",
+		"0000010000000000" when "0101",
+		"0000001000000000" when "0110",
+		"0000000100000000" when "0111",
+		"0000000010000000" when "1000",
+		"0000000001000000" when "1001",
+		"0000000000100000" when "1010",
+		"0000000000010000" when "1011",
+		"0000000000001000" when "1100",
+		"0000000000000100" when "1101",
+		"0000000000000010" when "1110",
+		"0000000000000001" when "1111";
 	
-	--WITH A SELECT
-	--
-	
-	--WITH A SELECT
-	--write(0) <= "1" WHEN "0000",
-	--write(1) <= "1" WHEN "0001",
-	--write(2) <= "1" WHEN "0010",
-	--write(3) <= "1" WHEN "0011",
-	--write(4) <= "1" WHEN "0100",
-	--write(5) <= "1" WHEN "0101",
-	--write(6) <= "1" WHEN "0110",
-	--write(7) <= "1" WHEN "0111",
-	--write(8) <= "1" WHEN "1000",
-	--write(9) <= "1" WHEN "1001",
-	--write(10) <= "1" WHEN "1010",
-	--write(11) <= "1" WHEN "1011",
-	--write(12) <= "1" WHEN "1100",
-	--write(13) <= "1" WHEN "1101",
-	--write(14) <= "1" WHEN "1110",
-	--write(15) <= "1" WHEN "1111";
-		
+	--	case A is
+	--	when "0000" => write(0) <= '1';
+	--	when "0001" => write(1) <= '1';
+	--	when "0010" => write(2) <= '1';
+	--	when "0011" => write(3) <= '1';
+	--	when "0100" => write(4) <= '1';
+	--	when "0101" => write(5) <= '1';
+	--	when "0110" => write(6) <= '1';
+	--	when "0111" => write(7) <= '1';
+	--	when "1000" => write(8) <= '1';
+	--	when "1001" => write(9) <= '1';
+	--	when "1010" => write(10) <= '1';
+	--	when "1011" => write(11) <= '1';
+	--	when "1100" => write(12) <= '1';
+	--	when "1101" => write(13) <= '1';
+	--	when "1110" => write(14) <= '1';
+	-- when "1111" => write(15) <= '1';
+	--	end case;
+
 	FOR01: for i in 0 to (15) generate
-		cont1: Celula generic map (N => 8) port map (clk,write(i),srw,E,Sout(i));
+		cont1: Celula generic map (N => 8) port map (
+		clk,
+		write(i),
+		srw,
+		E,
+		Sout(i));
 	end generate;	
 		
 	
