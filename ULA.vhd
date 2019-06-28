@@ -34,14 +34,13 @@ end component;
 signal RS : std_logic_vector(7 downto 0);
 signal suAux : std_logic_vector(7 downto 0);
 signal clkAux : std_logic;
-signal setAux : std_logic_vector(2 downto 0);
 
 begin
 
 	S0 : soma port map(X, Y, RS);
 	
 	
-	WITH setAux SELECT
+	WITH setULA SELECT
 		 suAux <= RS WHEN "000",
 						  (X AND Y) WHEN "001",
 						  (X OR Y) WHEN "010",
@@ -54,5 +53,9 @@ begin
 	WITH suAux SELECT
 		 Z <= ('1') WHEN "00000000",
 				('0') WHEN OTHERS;
+				
+	WITH suAux(7) SELECT
+			N <= '1' WHEN '1',
+				  '0' WHEN OTHERS;
 
 end archULA; 

@@ -37,14 +37,15 @@ end component;
 begin
 	
 	
-	S0 : soma port map(recRDM, "00000001", somado, auxCo);
+	
 	
 	with cargaIncPC select
 		aux <=	recRDM when "01",
 					somado when "10",
 					"00000000" when others;
 					
-			
-	Q1 : Registrador8Bits port map(aux,clearPC,clkPC, saidaPC);
+	Q1 : Registrador8Bits port map(aux, clearPC, clkPC, saidaPC);
+	S0 : soma port map(recRDM, "00000001", somado, auxCo);		
+	
 	
 end archPC;

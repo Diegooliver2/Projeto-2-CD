@@ -1,0 +1,36 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity OPcode is
+port(
+		recRDM: in std_logic_vector(7 downto 0);
+		clearOP : in std_logic;
+		clkOP : in std_logic;
+		cargaOP : in std_logic;
+		saidaOP : out std_logic_vector(7 downto 0)
+	);
+end OPcode;
+
+architecture archOPcode of OPcode is
+
+component Registrador8Bits is
+port(
+		I   : in std_logic_vector(7 downto 0);
+		clear : in std_logic;
+		clk : in std_logic;
+		Q   : out std_logic_vector(7 downto 0)
+	);
+end component;
+
+	signal aux : std_logic_vector(7 downto 0);
+	
+begin
+	
+	with cargaAC select
+		aux <= "00000000" when '0',
+					recRDM(7 downto 4)"0000" when '1',
+					"00000000" when others;
+	
+	Q1 : Registrador8Bits port map(aux, clearAC, clkAC, saidaAC);
+	
+end archOPcode;
