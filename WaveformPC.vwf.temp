@@ -1,3 +1,4 @@
+/* Simulator = Quartus II Simulator */
 /*
 WARNING: Do NOT edit the input and output ports in this file in a text
 editor if you plan to continue editing the block that represents it in
@@ -311,9 +312,9 @@ TRANSITION_LIST("clkPC")
 		REPEAT = 1;
 		NODE
 		{
-			REPEAT = 40;
-			LEVEL 0 FOR 12.5;
-			LEVEL 1 FOR 12.5;
+			REPEAT = 200;
+			LEVEL 0 FOR 2.5;
+			LEVEL 1 FOR 2.5;
 		}
 	}
 }

@@ -33,7 +33,7 @@ end component;
 	signal aux : std_logic_vector(7 downto 0);
 	signal somado : std_logic_vector(7 downto 0);
 	signal auxCO : std_logic;
-	
+	signal SpcAux : std_logic_vector(7 downto 0);
 begin
 	
 	
@@ -44,8 +44,9 @@ begin
 					somado when "10",
 					"00000000" when others;
 					
-	Q1 : Registrador8Bits port map(aux, clearPC, clkPC, saidaPC);
-	S0 : soma port map(recRDM, "00000001", somado, auxCo);		
+	Q1 : Registrador8Bits port map(aux, clearPC, clkPC, SpcAux);
+	saidaPC <= SpcAux;
+	S0 : soma port map(SpcAux, "00000001", somado, auxCo);		
 	
 	
 end archPC;
